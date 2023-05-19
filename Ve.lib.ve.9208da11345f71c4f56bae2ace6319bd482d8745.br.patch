@@ -1,0 +1,38 @@
+diff --git a/src/ce/keydownhandlers/ve.ce.LinearEnterKeyDownHandler.js b/src/ce/keydownhandlers/ve.ce.LinearEnterKeyDownHandler.js
+index 70f72b93f..7d45242f3 100644
+--- a/src/ce/keydownhandlers/ve.ce.LinearEnterKeyDownHandler.js
++++ b/src/ce/keydownhandlers/ve.ce.LinearEnterKeyDownHandler.js
+@@ -42,6 +42,7 @@ ve.ce.LinearEnterKeyDownHandler.static.execute = function ( surface, e ) {
+ 		cursor = range.from,
+ 		documentModel = surface.model.getDocument(),
+ 		emptyParagraph = [ { type: 'paragraph' }, { type: '/paragraph' } ],
++		emptyBreakLine = [ { type: 'break' }, { type: '/break' } ],
+ 		advanceCursor = true,
+ 		outermostNode = null,
+ 		nodeModel = null,
+@@ -110,7 +111,11 @@ ve.ce.LinearEnterKeyDownHandler.static.execute = function ( surface, e ) {
+ 			);
+ 			advanceCursor = false;
+ 		}
+-	} else if ( e.shiftKey && nodeModel.hasSignificantWhitespace() ) {
++	} else if ( !documentModel.sourceMode && e.shiftKey && nodeModel.hasSignificantWhitespace() && nodeModel.getType() === 'paragraph' ) {
++		// Insert double newline
++		//txInsert = ve.dm.TransactionBuilder.static.newFromInsertion( documentModel, range.from, '\n\n' );
++		txInsert = ve.dm.TransactionBuilder.static.newFromInsertion( documentModel, range.from, emptyBreakLine );
++	} else if ( !documentModel.sourceMode && e.shiftKey && nodeModel.hasSignificantWhitespace() ) {
+ 		// Insert newline
+ 		txInsert = ve.dm.TransactionBuilder.static.newFromInsertion( documentModel, range.from, '\n' );
+ 	} else if ( !node.splitOnEnter() ) {
+diff --git a/src/dm/nodes/ve.dm.ParagraphNode.js b/src/dm/nodes/ve.dm.ParagraphNode.js
+index dfd68e31f..8d65d2c3e 100644
+--- a/src/dm/nodes/ve.dm.ParagraphNode.js
++++ b/src/dm/nodes/ve.dm.ParagraphNode.js
+@@ -27,6 +27,8 @@ OO.inheritClass( ve.dm.ParagraphNode, ve.dm.ContentBranchNode );
+ 
+ ve.dm.ParagraphNode.static.name = 'paragraph';
+ 
++ve.dm.ParagraphNode.static.hasSignificantWhitespace = true;
++
+ ve.dm.ParagraphNode.static.matchTagNames = [ 'p' ];
+ 
+ /* Registration */
