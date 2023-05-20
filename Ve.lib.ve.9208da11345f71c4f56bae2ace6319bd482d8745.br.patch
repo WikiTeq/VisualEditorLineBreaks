@@ -22,3 +22,16 @@ index 70f72b93f..5173e6fc4 100644
  		// Insert newline
  		txInsert = ve.dm.TransactionBuilder.static.newFromInsertion( documentModel, range.from, '\n' );
  	} else if ( !node.splitOnEnter() ) {
+diff --git a/src/ve.utils.js b/src/ve.utils.js
+index 518e315d5..df45690a1 100644
+--- a/src/ve.utils.js
++++ b/src/ve.utils.js
+@@ -818,7 +818,7 @@ ve.convertDomElements = function ( value ) {
+ };
+ 
+ ve.visibleWhitespaceCharacters = {
+-	'\n': '\u21b5', // ↵
++	'\n': ' ', // ↵
+ 	'\t': '\u279e' // ➞
+ };
+ 
