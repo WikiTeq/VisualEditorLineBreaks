@@ -32,7 +32,7 @@ Switch to the [WikiTeq fork](https://github.com/WikiTeq/mediawiki-services-parso
  
 Klarna can accomplish this by modifying the `_bluespice/build/klarna/composer.json` file of its **bluespice** repository and rebuilding the artifact. The `repositories` section currently exists, and it can be modified to include:
  ```
-	"repositories":[
+	"repositories": [
 		{
 			"type": "vcs",
 			"url": "https://github.com/WikiTeq/mediawiki-services-parsoid.git"
@@ -40,9 +40,7 @@ Klarna can accomplish this by modifying the `_bluespice/build/klarna/composer.js
 	]
 ```
 
-Once that file has been modified, run `composer update --no-dev`.
-
 ### Patching VisualEditor
-The [Ve.lib.ve.9208da11345f71c4f56bae2ace6319bd482d8745.br.patch](https://github.com/WikiTeq/VisualEditorLineBreaks/blob/master/Ve.lib.ve.9208da11345f71c4f56bae2ace6319bd482d8745.br.patch) patch applies to the `lib/ve` submodule of `VisualEditor` extension. Therefore, it must be applied after the full VisualEditor installation, after `git submodule update --init` has been performed. 
+The [Ve.lib.ve.9208da11345f71c4f56bae2ace6319bd482d8745.br.patch](https://github.com/WikiTeq/VisualEditorLineBreaks/blob/master/Ve.lib.ve.9208da11345f71c4f56bae2ace6319bd482d8745.br.patch) patch applies to the `lib/ve` submodule of `VisualEditor` extension. Therefore, it must be applied after the full VisualEditor installation, after `git submodule update --init` has been performed (e.g. at `_bluespice/pre-autoload-dump.d/99-apply_patches.sh`). 
 
-WikiTeq has tested and confirmed the patch applies using the latest commit of the Klarna **bluespice** repo within `_bluespice/pre-autoload-dump.d/99-apply_patches.sh`.
+WikiTeq has tested and confirmed the patch applies using the latest commit of the Klarna **bluespice** repo.
