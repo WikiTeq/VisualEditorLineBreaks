@@ -28,7 +28,7 @@ Normal paragraph 2
  
  ## Installation
  ### Patching the parser
-Switch to the [WikiTeq fork](https://github.com/WikiTeq/mediawiki-services-parsoid/commit/c8af61bec0d4420567177e60031b20b4a71f1f2b) of `wikimedia/parser`. WikiTeq cloned and patched the `0.12.3` version of Parser that is used by MediaWiki version 1.35. The method for doing this depends on your MediaWiki setup.
+Switch to the [WikiTeq fork](https://github.com/WikiTeq/mediawiki-services-parsoid) of `wikimedia/mediawiki-services-parsoid`. WikiTeq cloned and patched the `0.12.3` version of Parser that is used by MediaWiki version 1.35. The method for doing this depends on your MediaWiki setup.
  
 Klarna can accomplish this by modifying the `_bluespice/build/klarna/composer.json` file of its **bluespice** repository and rebuilding the artifact. The `repositories` section currently exists, and it can be modified to include:
  ```
