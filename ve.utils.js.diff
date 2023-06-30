@@ -1,0 +1,13 @@
+diff --git a/src/ve.utils.js b/src/ve.utils.js
+index ebdefe3da..cd12527a5 100644
+--- a/src/ve.utils.js
++++ b/src/ve.utils.js
+@@ -820,7 +820,7 @@ ve.convertDomElements = function ( value ) {
+ };
+ 
+ ve.visibleWhitespaceCharacters = {
+-	'\n': '\u21b5', // ↵
++	'\n': ' ', // space
+ 	'\t': '\u279e' // ➞
+ };
+ 

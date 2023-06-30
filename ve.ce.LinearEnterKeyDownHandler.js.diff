@@ -1,8 +1,8 @@
 diff --git a/src/ce/keydownhandlers/ve.ce.LinearEnterKeyDownHandler.js b/src/ce/keydownhandlers/ve.ce.LinearEnterKeyDownHandler.js
-index 70f72b93f..5173e6fc4 100644
+index 842fc55de..2612f83b4 100644
 --- a/src/ce/keydownhandlers/ve.ce.LinearEnterKeyDownHandler.js
 +++ b/src/ce/keydownhandlers/ve.ce.LinearEnterKeyDownHandler.js
-@@ -42,6 +42,7 @@ ve.ce.LinearEnterKeyDownHandler.static.execute = function ( surface, e ) {
+@@ -40,6 +40,7 @@ ve.ce.LinearEnterKeyDownHandler.static.execute = function ( surface, e ) {
  		cursor = range.from,
  		documentModel = surface.model.getDocument(),
  		emptyParagraph = [ { type: 'paragraph' }, { type: '/paragraph' } ],
@@ -10,10 +10,10 @@ index 70f72b93f..5173e6fc4 100644
  		advanceCursor = true,
  		outermostNode = null,
  		nodeModel = null,
-@@ -110,7 +111,10 @@ ve.ce.LinearEnterKeyDownHandler.static.execute = function ( surface, e ) {
- 			);
- 			advanceCursor = false;
- 		}
+@@ -90,7 +91,10 @@ ve.ce.LinearEnterKeyDownHandler.static.execute = function ( surface, e ) {
+ 	// Handle insertion
+ 	if ( node === null ) {
+ 		throw new Error( 'node === null' );
 -	} else if ( e.shiftKey && nodeModel.hasSignificantWhitespace() ) {
 +	} else if ( !documentModel.sourceMode && e.shiftKey && nodeModel.getType() === 'paragraph' ) {
 +		// Insert break node
@@ -21,17 +21,4 @@ index 70f72b93f..5173e6fc4 100644
 +	} else if ( !documentModel.sourceMode && e.shiftKey && nodeModel.hasSignificantWhitespace() ) {
  		// Insert newline
  		txInsert = ve.dm.TransactionBuilder.static.newFromInsertion( documentModel, range.from, '\n' );
- 	} else if ( !node.splitOnEnter() ) {
-diff --git a/src/ve.utils.js b/src/ve.utils.js
-index 518e315d5..5931b7c75 100644
---- a/src/ve.utils.js
-+++ b/src/ve.utils.js
-@@ -818,7 +818,7 @@ ve.convertDomElements = function ( value ) {
- };
- 
- ve.visibleWhitespaceCharacters = {
--	'\n': '\u21b5', // ↵
-+	'\n': ' ', // space
- 	'\t': '\u279e' // ➞
- };
- 
+ 	} else if (
